@@ -13,7 +13,7 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 
 typedef struct _cardProbability // 卡片結構 
 {
-    int id;	// 識別值 
+    int id; // 識別值 
     double probability; // 機率 
     char *name;	// 名稱 
 } cardProbability_t;

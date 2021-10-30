@@ -11,12 +11,12 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 #define CARD_POOL 10000 // 卡池
 #define DAWR_COUNT 1000000 // 卡片抽取次數
 
-// 卡片結構 
 typedef struct _cardProbability 
 {
     double probability; // 機率 
     char *name;	// 名稱 
 } cardProbability_t;
+
 // 卡片
 cardProbability_t cpts[] = 
 {

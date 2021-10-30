@@ -1,6 +1,6 @@
 # CardProbabilitySimulator
 抽卡模擬器，簡易模擬SSR、R、N三張卡片的抽取。  
-設定機率後抽取1000000次
+設定卡片機率後抽取1000000次
 
 ### 卡片機率
 <table>

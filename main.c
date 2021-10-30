@@ -11,81 +11,88 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 #define CARD_POOL 10000 // 卡池
 #define DAWR_COUNT 1000000 // 卡片抽取次數
 
-typedef struct _cardProbability // 卡片結構 
+// 卡片結構 
+typedef struct _cardProbability 
 {
-    int id; // 識別值 
     double probability; // 機率 
     char *name;	// 名稱 
 } cardProbability_t;
-
-// 機率陣列 
+// 卡片
+cardProbability_t cpts[] = 
+{
+	{2.5,"SSR卡片"},{40,"R卡片"},{57.5,"N卡片"}
+};
+int cptsSize=sizeof(cpts)/sizeof(cardProbability_t);
+// 抽卡機率陣列 
 int * probabilityArr;
 int pIndex = 0;
-// 卡池卡片量 
-int cardCount1,cardCount2,cardCount3,totalCardCount;
-// 統計抽取結果 
-int sum1=0,sum2=0,sum3=0;
-// 卡片
-cardProbability_t *cpt1,*cpt2,*cpt3;
+// 卡池內卡片量 
+int *cardCountArr;
+int totalCardCount;
+// 統計抽取結果陣列
+int *drawSumArr;
 
+int getTotalCardCount(int * arr,int size); // 取得卡片加總數 
+ 
 int main()                           
-{      
-	cpt1 = malloc(sizeof(cardProbability_t));
-	cpt1->id = 1;
-	cpt1->probability = 2.5;// 抽中率2.5% 
-	cpt1->name = "SSR卡片"; 
+{   
+	cardCountArr=(int *)malloc(cptsSize*sizeof(int));
+	drawSumArr=(int *)malloc(cptsSize*sizeof(int));
 	
-	cpt2 = malloc(sizeof(cardProbability_t));
-	cpt2->id = 2;
-	cpt2->probability = 40;// 抽中率40%
-	cpt2->name = "R卡片";
-	
-	cpt3 = malloc(sizeof(cardProbability_t));
-	cpt3->id = 3;
-	cpt3->probability = 57.5;// 抽中率57.5%
-	cpt3->name = "N卡片";
-	
-	cardCount1 = cpt1->probability/100.0f*CARD_POOL;
-	cardCount2 = cpt2->probability/100.0f*CARD_POOL;
-	cardCount3 = cpt3->probability/100.0f*CARD_POOL;
-	totalCardCount = cardCount1+cardCount2+cardCount3; 
-	
-	probabilityArr = (int*)malloc((int)totalCardCount*sizeof(int));
-	
-	for(int i=0;i<cardCount1;i++)
-	{
-		probabilityArr[pIndex++] = cpt1->id;
+	for(int i=0;i<cptsSize;i++) // 依照機率建立卡片量 
+	{	
+		cardCountArr[i] = cpts[i].probability/100.0f*CARD_POOL;
 	}
-	for(int i=0;i<cardCount2;i++)
-	{
-		probabilityArr[pIndex++] = cpt2->id;
-	}
-	for(int i=0;i<cardCount3;i++)
-	{
-		probabilityArr[pIndex++] = cpt3->id;
-	}	
 	
-	srand(time(NULL)); // 初始亂數種子 
-	for(int i=0;i<DAWR_COUNT;i++)
+	totalCardCount = getTotalCardCount(cardCountArr,cptsSize);
+	probabilityArr = (int*)malloc(totalCardCount*sizeof(int));
+	for(int i=0;i<cptsSize;i++) // 建置抽卡機率陣列 
 	{
-		int resultIndex=(rand()%(int)totalCardCount);
-		if(probabilityArr[resultIndex]==cpt1->id)
-			sum1++;
-		if(probabilityArr[resultIndex]==cpt2->id)
-			sum2++;
-		if(probabilityArr[resultIndex]==cpt3->id)
-			sum3++;
-	} 
+		int cardCount = cardCountArr[i]; // 卡片量 
+		for(int j=0;j<cardCount;j++)
+		{	
+			probabilityArr[pIndex++] = i; 
+		}
+	}
+	
+	srand((unsigned)time(NULL)); // 初始亂數種子 
+	for(int i=0;i<cptsSize;i++)
+	{
+		drawSumArr[i] = 0; 
+	}
+	for(int i=0;i<DAWR_COUNT;i++) // 開始抽取
+	{
+		int drawIndex=(rand()%(int)totalCardCount);  // 抽中卡片  
+		for(int j=0;j<cptsSize;j++)
+		{
+			if(probabilityArr[drawIndex] == j)
+			{
+				drawSumArr[j]++; // 累加卡片抽中次數 
+			} 
+		}
+	}
 	
 	printf("設定卡片機率數值:\n");
-	printf("%s機率: %.3f%%\n",cpt1->name,cpt1->probability);
-	printf("%s機率: %.3f%%\n",cpt2->name,cpt2->probability);
-	printf("%s機率: %.3f%%\n",cpt3->name,cpt3->probability); 
+	for(int i=0;i<cptsSize;i++)
+	{
+		printf("%s機率: %.3f%%\n",cpts[i].name,cpts[i].probability);
+	}
 	printf("\n");
 	printf("模擬抽%d次結果:\n",DAWR_COUNT);
-	printf("抽出%s: %d次，機率:%.3f%%\n",cpt1->name,sum1,sum1/(double)DAWR_COUNT*100);
-	printf("抽出%s: %d次，機率:%.3f%%\n",cpt2->name,sum2,sum2/(double)DAWR_COUNT*100);
-	printf("抽出%s: %d次，機率:%.3f%%\n",cpt3->name,sum3,sum3/(double)DAWR_COUNT*100);
-	
+	for(int i=0;i<cptsSize;i++)
+	{
+		printf("抽出%s: %d次，機率:%.3f%%\n",cpts[i].name,drawSumArr[i],drawSumArr[i]/(double)DAWR_COUNT*100);
+	}
 	return 0;
+}
+
+// 取得卡片加總數 
+int getTotalCardCount(int * arr,int size)
+{
+	int total = 0;
+	for(int i=0;i<size;i++)
+	{
+		total +=arr[i];
+	}
+	return total;
 }

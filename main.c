@@ -2,6 +2,7 @@
 CardProbabilitySimulator
 Author:Yu Hsiang
 Date:2021-10-30
+Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 ********************************************************************/
 #include <stdio.h>
 #include <math.h>

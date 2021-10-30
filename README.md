@@ -32,3 +32,4 @@
 + https://forum.gamer.com.tw/Co.php?bsn=23805&sn=3358183
 + https://pttgame.com/chainchron/M.1388918007.A.94F.html
 + https://forum.gamer.com.tw/Co.php?bsn=36833&sn=60151
++ https://gist.github.com/JLChnToZ/83a684201173f651de57d497e4922084

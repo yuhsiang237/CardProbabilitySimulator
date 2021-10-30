@@ -40,9 +40,12 @@ void print();
 
 int main()                           
 {   
-    buildProbability(); // 建置機率卡池 
-    startDraw(); // 開始抽卡 
-    print(); // 印出抽取結果 
+    // 建置機率卡池 
+    buildProbability(); 
+    // 開始抽卡 
+    startDraw(); 
+    // 印出抽取結果 
+    print(); 
     return 0;
 }
 

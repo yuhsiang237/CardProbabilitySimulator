@@ -1,3 +1,8 @@
+/********************************************************************
+CardProbabilitySimulator
+Author:Yu Hsiang
+Date:2021-10-30
+********************************************************************/
 #include <stdio.h>
 #include <math.h>
 #include <time.h>

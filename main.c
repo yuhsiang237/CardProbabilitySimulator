@@ -9,7 +9,7 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 #include <time.h>
 
 #define CARD_POOL 10000 // 卡池
-#define DAWR_COUNT 1000000 // 卡片抽取次數
+#define DRAW_COUNT 1000000 // 卡片抽取次數
 
 
 typedef struct _cardProbability 
@@ -69,7 +69,7 @@ void startDraw()
     {
         drawSumArr[i] = 0; 
     }
-    for(int i=0;i<DAWR_COUNT;i++) // 開始抽取
+    for(int i=0;i<DRAW_COUNT;i++) // 開始抽取
     {
         int drawIndex=(rand()%(int)totalCardCount);  // 抽中卡片  
 	for(int j=0;j<cptsSize;j++)
@@ -111,9 +111,9 @@ void print()
         printf("%s機率: %.3f%%\n",cpts[i].name,cpts[i].probability);
     }
     printf("\n");
-    printf("模擬抽%d次結果:\n",DAWR_COUNT);
+    printf("模擬抽%d次結果:\n",DRAW_COUNT);
     for(int i=0;i<cptsSize;i++)
     {
-        printf("抽出%s: %d次，機率:%.3f%%\n",cpts[i].name,drawSumArr[i],drawSumArr[i]/(double)DAWR_COUNT*100);
+        printf("抽出%s: %d次，機率:%.3f%%\n",cpts[i].name,drawSumArr[i],drawSumArr[i]/(double)DRAW_COUNT*100);
     }
 }

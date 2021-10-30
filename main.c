@@ -11,6 +11,7 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 #define CARD_POOL 10000 // 卡池
 #define DAWR_COUNT 1000000 // 卡片抽取次數
 
+
 typedef struct _cardProbability 
 {
     double probability; // 機率 
@@ -32,26 +33,34 @@ int totalCardCount;
 // 統計抽取結果陣列
 int *drawSumArr;
 
-int getTotalCardCount(int * arr,int size); // 取得卡片加總數 
- 
+int getTotalCardCount(int * arr,int size); 
+void buildProbability();
+void startDraw();
+void print();
+
 int main()                           
 {   
-    cardCountArr=(int *)malloc(cptsSize*sizeof(int));
-    drawSumArr=(int *)malloc(cptsSize*sizeof(int));
-    for(int i=0;i<cptsSize;i++) // 依照機率建立卡片量 
-    {	
-	cardCountArr[i] = cpts[i].probability/100.0f*CARD_POOL;
-    }
-    totalCardCount = getTotalCardCount(cardCountArr,cptsSize);
-    probabilityArr = (int*)malloc(totalCardCount*sizeof(int));
-    for(int i=0;i<cptsSize;i++) // 建置抽卡機率陣列 
+    buildProbability(); // 建置機率卡池 
+    startDraw(); // 開始抽卡 
+    print(); // 印出抽取結果 
+    return 0;
+}
+
+// 取得卡片加總數 
+int getTotalCardCount(int * arr,int size)
+{
+    int total = 0;
+    for(int i=0;i<size;i++)
     {
-	int cardCount = cardCountArr[i]; // 卡片量 
-	for(int j=0;j<cardCount;j++)
-	{	
-            probabilityArr[pIndex++] = i; 
-	}
+        total +=arr[i];
     }
+    return total;
+}
+
+// 開始抽卡 
+void startDraw()
+{
+    drawSumArr=(int *)malloc(cptsSize*sizeof(int));
     srand((unsigned)time(NULL)); // 初始亂數種子 
     for(int i=0;i<cptsSize;i++)
     {
@@ -69,6 +78,30 @@ int main()
             } 
         }
     }
+}
+
+// 建置抽卡機率陣列
+void buildProbability(){ 
+    cardCountArr=(int *)malloc(cptsSize*sizeof(int));
+    for(int i=0;i<cptsSize;i++) // 依照機率建立卡片量 
+    {	
+        cardCountArr[i] = cpts[i].probability/100.0f*CARD_POOL;
+    }
+    totalCardCount = getTotalCardCount(cardCountArr,cptsSize);
+    probabilityArr = (int*)malloc(totalCardCount*sizeof(int));
+    for(int i=0;i<cptsSize;i++) // 建置抽卡機率陣列 
+    {
+        int cardCount = cardCountArr[i]; // 卡片量 
+        for(int j=0;j<cardCount;j++)
+        {	
+            probabilityArr[pIndex++] = i; 
+        }
+    }
+}
+
+// 印出抽取結果
+void print()
+{
     printf("設定卡片機率數值:\n");
     for(int i=0;i<cptsSize;i++)
     {
@@ -80,16 +113,4 @@ int main()
     {
         printf("抽出%s: %d次，機率:%.3f%%\n",cpts[i].name,drawSumArr[i],drawSumArr[i]/(double)DAWR_COUNT*100);
     }
-    return 0;
-}
-
-// 取得卡片加總數 
-int getTotalCardCount(int * arr,int size)
-{
-    int total = 0;
-    for(int i=0;i<size;i++)
-    {
-        total +=arr[i];
-    }
-    return total;
 }

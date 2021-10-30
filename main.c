@@ -65,6 +65,7 @@ int main()
 			if(probabilityArr[drawIndex] == j)
 			{
 				drawSumArr[j]++; // 累加卡片抽中次數 
+				break;
 			} 
 		}
 	}

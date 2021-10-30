@@ -11,7 +11,6 @@ Link:https://github.com/yuhsiang237/CardProbabilitySimulator
 #define CARD_POOL 10000 // 卡池
 #define DRAW_COUNT 1000000 // 卡片抽取次數
 
-
 typedef struct _cardProbability 
 {
     double probability; // 機率 

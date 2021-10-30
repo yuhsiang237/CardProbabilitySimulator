@@ -38,12 +38,10 @@ int main()
 {   
 	cardCountArr=(int *)malloc(cptsSize*sizeof(int));
 	drawSumArr=(int *)malloc(cptsSize*sizeof(int));
-	
 	for(int i=0;i<cptsSize;i++) // 依照機率建立卡片量 
 	{	
 		cardCountArr[i] = cpts[i].probability/100.0f*CARD_POOL;
 	}
-	
 	totalCardCount = getTotalCardCount(cardCountArr,cptsSize);
 	probabilityArr = (int*)malloc(totalCardCount*sizeof(int));
 	for(int i=0;i<cptsSize;i++) // 建置抽卡機率陣列 
@@ -54,7 +52,6 @@ int main()
 			probabilityArr[pIndex++] = i; 
 		}
 	}
-	
 	srand((unsigned)time(NULL)); // 初始亂數種子 
 	for(int i=0;i<cptsSize;i++)
 	{
@@ -71,7 +68,6 @@ int main()
 			} 
 		}
 	}
-	
 	printf("設定卡片機率數值:\n");
 	for(int i=0;i<cptsSize;i++)
 	{

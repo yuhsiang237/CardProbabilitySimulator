@@ -27,7 +27,7 @@ int sum1=0,sum2=0,sum3=0;
 // 卡片
 cardProbability_t *cpt1,*cpt2,*cpt3;
 
-int main(void)                           
+int main()                           
 {      
 	cpt1 = malloc(sizeof(cardProbability_t));
 	cpt1->id = 1;

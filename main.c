@@ -65,7 +65,7 @@ int main()
 	}	
 	
 	srand(time(NULL)); // 初始亂數種子 
-	for(int i=0;i<=DAWR_COUNT;i++)
+	for(int i=0;i<DAWR_COUNT;i++)
 	{
 		int resultIndex=(rand()%(int)totalCardCount);
 		if(probabilityArr[resultIndex]==cpt1->id)

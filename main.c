@@ -2,42 +2,42 @@
 #include <math.h>
 #include <time.h>
 
-#define CARD_POOL 10000 // ¥d¦À
-#define DAWR_COUNT 1000000 // ¥d¤ù©â¨ú¦¸¼Æ
+#define CARD_POOL 10000 // å¡æ± 
+#define DAWR_COUNT 1000000 // å¡ç‰‡æŠ½å–æ¬¡æ•¸
 
-typedef struct _cardProbability // ¥d¤ùµ²ºc 
+typedef struct _cardProbability // å¡ç‰‡çµæ§‹ 
 {
-	int id;	// ÃÑ§O­È 
-    double probability; // ¾÷²v 
-    char *name;	// ¦WºÙ 
+    int id;	// è­˜åˆ¥å€¼ 
+    double probability; // æ©Ÿç‡ 
+    char *name;	// åç¨± 
 } cardProbability_t;
 
-// ¾÷²v°}¦C 
+// æ©Ÿç‡é™£åˆ— 
 int * probabilityArr;
 int pIndex = 0;
-// ¥d¦À¥d¤ù¶q 
+// å¡æ± å¡ç‰‡é‡ 
 int cardCount1,cardCount2,cardCount3,totalCardCount;
-// ²Î­p©â¨úµ²ªG 
+// çµ±è¨ˆæŠ½å–çµæœ 
 int sum1=0,sum2=0,sum3=0;
-// ¥d¤ù
+// å¡ç‰‡
 cardProbability_t *cpt1,*cpt2,*cpt3;
 
 int main(void)                           
 {      
 	cpt1 = malloc(sizeof(cardProbability_t));
 	cpt1->id = 1;
-	cpt1->probability = 2.5;// ©â¤¤²v2.5% 
-	cpt1->name = "SSR¥d¤ù"; 
+	cpt1->probability = 2.5;// æŠ½ä¸­ç‡2.5% 
+	cpt1->name = "SSRå¡ç‰‡"; 
 	
 	cpt2 = malloc(sizeof(cardProbability_t));
 	cpt2->id = 2;
-	cpt2->probability = 40;// ©â¤¤²v40%
-	cpt2->name = "R¥d¤ù";
+	cpt2->probability = 40;// æŠ½ä¸­ç‡40%
+	cpt2->name = "Rå¡ç‰‡";
 	
 	cpt3 = malloc(sizeof(cardProbability_t));
 	cpt3->id = 3;
-	cpt3->probability = 57.5;// ©â¤¤²v57.5%
-	cpt3->name = "N¥d¤ù";
+	cpt3->probability = 57.5;// æŠ½ä¸­ç‡57.5%
+	cpt3->name = "Nå¡ç‰‡";
 	
 	cardCount1 = cpt1->probability/100.0f*CARD_POOL;
 	cardCount2 = cpt2->probability/100.0f*CARD_POOL;
@@ -59,7 +59,7 @@ int main(void)
 		probabilityArr[pIndex++] = cpt3->id;
 	}	
 	
-	srand(time(NULL)); // ªì©l¶Ã¼ÆºØ¤l 
+	srand(time(NULL)); // åˆå§‹äº‚æ•¸ç¨®å­ 
 	for(int i=0;i<=DAWR_COUNT;i++)
 	{
 		int resultIndex=(rand()%(int)totalCardCount);
@@ -71,15 +71,15 @@ int main(void)
 			sum3++;
 	} 
 	
-	printf("³]©w¥d¤ù¾÷²v¼Æ­È:\n");
-	printf("%s¾÷²v: %.3f%%\n",cpt1->name,cpt1->probability);
-	printf("%s¾÷²v: %.3f%%\n",cpt2->name,cpt2->probability);
-	printf("%s¾÷²v: %.3f%%\n",cpt3->name,cpt3->probability); 
+	printf("è¨­å®šå¡ç‰‡æ©Ÿç‡æ•¸å€¼:\n");
+	printf("%sæ©Ÿç‡: %.3f%%\n",cpt1->name,cpt1->probability);
+	printf("%sæ©Ÿç‡: %.3f%%\n",cpt2->name,cpt2->probability);
+	printf("%sæ©Ÿç‡: %.3f%%\n",cpt3->name,cpt3->probability); 
 	printf("\n");
-	printf("¼ÒÀÀ©â%d¦¸µ²ªG:\n",DAWR_COUNT);
-	printf("©â¥X%s: %d¦¸¡A¾÷²v:%.3f%%\n",cpt1->name,sum1,sum1/(double)DAWR_COUNT*100);
-	printf("©â¥X%s: %d¦¸¡A¾÷²v:%.3f%%\n",cpt2->name,sum2,sum2/(double)DAWR_COUNT*100);
-	printf("©â¥X%s: %d¦¸¡A¾÷²v:%.3f%%\n",cpt3->name,sum3,sum3/(double)DAWR_COUNT*100);
+	printf("æ¨¡æ“¬æŠ½%dæ¬¡çµæœ:\n",DAWR_COUNT);
+	printf("æŠ½å‡º%s: %dæ¬¡ï¼Œæ©Ÿç‡:%.3f%%\n",cpt1->name,sum1,sum1/(double)DAWR_COUNT*100);
+	printf("æŠ½å‡º%s: %dæ¬¡ï¼Œæ©Ÿç‡:%.3f%%\n",cpt2->name,sum2,sum2/(double)DAWR_COUNT*100);
+	printf("æŠ½å‡º%s: %dæ¬¡ï¼Œæ©Ÿç‡:%.3f%%\n",cpt3->name,sum3,sum3/(double)DAWR_COUNT*100);
 	
 	return 0;
 }

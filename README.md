@@ -24,3 +24,9 @@
 
 ### 測試結果
 <img src="demo.png" >
+
+### 參考文獻
++ https://forum.gamer.com.tw/Co.php?bsn=23805&sn=3358275
++ https://forum.gamer.com.tw/Co.php?bsn=23805&sn=3358183
++ https://pttgame.com/chainchron/M.1388918007.A.94F.html
++ https://forum.gamer.com.tw/Co.php?bsn=36833&sn=60151
